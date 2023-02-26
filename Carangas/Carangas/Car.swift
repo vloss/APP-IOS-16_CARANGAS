@@ -8,11 +8,11 @@
 import Foundation
 
 class Car: Codable {
-    var _id: String
-    var brand: String
-    var gasType: Int
-    var name: String
-    var price: Double
+    var _id: String?
+    var brand: String = ""
+    var gasType: Int = 0
+    var name: String = ""
+    var price: Double = 0.0
     
     var gas: String {
         switch gasType {
