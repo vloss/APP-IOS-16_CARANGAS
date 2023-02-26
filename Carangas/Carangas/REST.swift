@@ -87,4 +87,8 @@ class REST {
         dataTask.resume()
         
     }
+    
+    class func save(car: Car){
+        
+    }
 }
