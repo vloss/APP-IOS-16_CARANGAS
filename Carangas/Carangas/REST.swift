@@ -8,6 +8,15 @@
 
 import Foundation
 
+enum CarError {
+    case url
+    case taskError(error: Error)
+    case noResponse
+    case noData
+    case responseStatusCode(code: Int)
+    case invalidJSON
+}
+
 class REST {
     
     private static let basePath = "https://carangas.herokuapp.com/cars"
@@ -30,15 +39,21 @@ class REST {
     private static let session = URLSession(configuration: configuration) // URLSession.shared // Sessão compartilhada, jeito mais comum de criar uma sessão.
     
     // Metodo de class que nao precisa a classe estar instanciada para ser utilixado.
-    class func loadCars(){
-        guard let url = URL(string: basePath) else {return}
+    class func loadCars(onComplete: @escaping ([Car]) -> Void, onError: @escaping (CarError) -> Void){
+        guard let url = URL(string: basePath) else {
+            onError(.url)
+            return
+        }
         
         // Cria a tarefa - Retorna JSON no data
         let dataTask = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
             if error == nil {
                 
                 // desembrulhando response
-                guard let response = response as? HTTPURLResponse else { return }
+                guard let response = response as? HTTPURLResponse else {
+                    onError(.noResponse)
+                    return
+                }
                 
                 // valida código de retorno do response
                 if response.statusCode == 200 {
@@ -49,21 +64,22 @@ class REST {
                     do {
                         let cars = try JSONDecoder().decode([Car].self, from: data)
                         
-                        for car in cars {
-                            print(car.name, car.brand)
-                        }
+                        onComplete(cars)
                         
                     } catch {
-                        print(error.localizedDescription)
+                        //print(error.localizedDescription)
+                        onError(.invalidJSON)
                     }
                     
                 } else {
-                    print("Algum status inválido pelo servidor!!")
+                    //print("Algum status inválido pelo servidor!!")
+                    onError(.responseStatusCode(code: response.statusCode))
                 }
                 
             } else {
                 // Esse erro se refere a algum erro no app e não na resposta ou servidor
-                print(error!)
+                //print(error!)
+                onError(.taskError(error: error!))
             }
         }
         

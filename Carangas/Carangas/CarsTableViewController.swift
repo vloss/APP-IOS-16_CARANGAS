@@ -25,7 +25,23 @@ class CarsTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        REST.loadCars()
+        REST.loadCars { (cars) in
+            self.cars = cars
+            
+            // Executa o recarregamento da tableview na thread principal.
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+
+        } onError: { (error) in
+            switch error {
+            case .url:
+                print("Erro de URL")
+            default:
+                print(error)
+            }
+        }
+
     }
     
     override func didReceiveMemoryWarning() {
