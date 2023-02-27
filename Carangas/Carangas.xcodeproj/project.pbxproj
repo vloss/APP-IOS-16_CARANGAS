@@ -16,6 +16,7 @@
 		A1B18D1B1F9C1DCF00313110 /* CarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B18D1A1F9C1DCF00313110 /* CarViewController.swift */; };
 		B723EB2329A95FE800676043 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723EB2229A95FE800676043 /* Car.swift */; };
 		B723EB2529A9611D00676043 /* REST.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723EB2429A9611D00676043 /* REST.swift */; };
+		B723EB2729AD1B8400676043 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723EB2629AD1B8400676043 /* Brand.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		A1B18D1A1F9C1DCF00313110 /* CarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarViewController.swift; sourceTree = "<group>"; };
 		B723EB2229A95FE800676043 /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
 		B723EB2429A9611D00676043 /* REST.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = REST.swift; sourceTree = "<group>"; };
+		B723EB2629AD1B8400676043 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			children = (
 				A1B18D041F9C1BDD00313110 /* AppDelegate.swift */,
 				B723EB2229A95FE800676043 /* Car.swift */,
+				B723EB2629AD1B8400676043 /* Brand.swift */,
 				B723EB2429A9611D00676043 /* REST.swift */,
 				A1B18D161F9C1D7E00313110 /* CarsTableViewController.swift */,
 				A1B18D181F9C1DBA00313110 /* AddEditViewController.swift */,
@@ -152,6 +155,7 @@
 				B723EB2529A9611D00676043 /* REST.swift in Sources */,
 				A1B18D051F9C1BDD00313110 /* AppDelegate.swift in Sources */,
 				B723EB2329A95FE800676043 /* Car.swift in Sources */,
+				B723EB2729AD1B8400676043 /* Brand.swift in Sources */,
 				A1B18D191F9C1DBA00313110 /* AddEditViewController.swift in Sources */,
 				A1B18D1B1F9C1DCF00313110 /* CarViewController.swift in Sources */,
 			);

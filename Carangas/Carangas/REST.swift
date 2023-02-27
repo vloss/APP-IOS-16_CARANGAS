@@ -45,6 +45,53 @@ class REST {
     private static let session = URLSession(configuration: configuration) // URLSession.shared // Sessão compartilhada, jeito mais comum de criar uma sessão.
     
     // Metodo de class que nao precisa a classe estar instanciada para ser utilixado.
+    class func loadBrands(onComplete: @escaping ([Brand]?) -> Void){
+
+        guard let url = URL(string: "https://parallelum.com.br/fipe/api/v1/carros/marcas") else {
+            onComplete(nil)
+            return
+        }
+        
+        // Cria a tarefa - Retorna JSON no data
+        let dataTask = session.dataTask(with: url) { (data: Data?, response: URLResponse?, error: Error?) in
+            if error == nil {
+                
+                // desembrulhando response
+                guard let response = response as? HTTPURLResponse else {
+                    onComplete(nil)
+                    return
+                }
+                
+                // valida código de retorno do response
+                if response.statusCode == 200 {
+                    
+                    // desembrulhando data
+                    guard let data = data else { return }
+                    
+                    do {
+                        let brands = try JSONDecoder().decode([Brand].self, from: data)
+                        
+                        onComplete(brands)
+                        
+                    } catch {
+                        onComplete(nil)
+                    }
+                    
+                } else {
+                    onComplete(nil)
+                }
+                
+            } else {
+                onComplete(nil)
+            }
+        }
+        
+        // Executa a tarefa.
+        dataTask.resume()
+        
+    }
+
+    // Metodo de class que nao precisa a classe estar instanciada para ser utilixado.
     class func loadCars(onComplete: @escaping ([Car]) -> Void, onError: @escaping (CarError) -> Void){
         guard let url = URL(string: basePath) else {
             onError(.url)
