@@ -24,7 +24,7 @@ class AddEditViewController: UIViewController {
     
     lazy var pickerView: UIPickerView = {
         let pickerView = UIPickerView()
-        pickerView.backgroundColor = .black
+        pickerView.backgroundColor = .gray
         pickerView.delegate = self
         pickerView.dataSource = self
         
@@ -75,8 +75,20 @@ class AddEditViewController: UIViewController {
         REST.loadBrands { (brands) in
             if let brands = brands {
                 self.brands = brands.sorted(by: {$0.nome < $1.nome}) // aplicando ordenação
+                
+                var index = 0
+
+                if self.car != nil, let row = self.brands.enumerated().first(where: {$0.element.nome == self.car.brand}) {
+                    index = Int(row.offset)
+                }
+                
+                if self.car != nil, let id_row = self.brands.firstIndex(where: {$0.nome == self.car.brand}) {
+                    print("id_row", id_row)
+                }
+                
                 DispatchQueue.main.async {
                     self.pickerView.reloadAllComponents()
+                    self.pickerView.selectRow(index, inComponent: 0, animated: true)
                 }
             }
         }
@@ -135,6 +147,7 @@ extension AddEditViewController: UIPickerViewDelegate, UIPickerViewDataSource{
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         let brand = brands[row]
+        
         return brand.nome
     }
 }
